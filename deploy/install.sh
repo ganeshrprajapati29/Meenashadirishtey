@@ -20,7 +20,9 @@ REPO_URL="${REPO_URL:-https://github.com/ganeshrprajapati29/Meenashadirishtey.gi
 BRANCH="${BRANCH:-main}"
 BASE=/opt/msr
 APP="$BASE/app"
-NODE_VERSION="${NODE_VERSION:-v20.18.1}"
+# Node 22 LTS (Vite 8 needs >= 20.19 / 22.12). Resolves the latest 22.x automatically.
+NODE_VERSION="${NODE_VERSION:-$(curl -fsSL https://nodejs.org/dist/latest-v22.x/SHASUMS256.txt | grep -o 'node-v22[0-9.]*-linux-x64.tar.xz' | head -1 | sed -E 's/node-(v[0-9.]+)-.*/\1/')}"
+[ -n "$NODE_VERSION" ] || NODE_VERSION=v22.12.0
 API_PORT="${API_PORT:-5055}"
 MONGO_PORT="${MONGO_PORT:-27027}"
 PUBLIC_IP="${PUBLIC_IP:-$(curl -fsS4 https://api.ipify.org || hostname -I | awk '{print $1}')}"
@@ -111,6 +113,7 @@ ok "MongoDB running"
 # ---------- backend ----------
 c "Installing backend"
 cd "$APP/backend"
+rm -rf node_modules
 if [ ! -f "$BASE/backend.env" ]; then
   JWT=$(head -c 48 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 64)
   ADMIN_PW="Msr@$(head -c 6 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 8)"
@@ -150,7 +153,10 @@ ok "Backend ready"
 # ---------- website ----------
 c "Building website"
 cd "$APP/web"
+rm -rf node_modules
 npm ci --no-audit --no-fund
+# npm optional-dependency bug safety net (rolldown native binding)
+node -e "require('rolldown')" 2>/dev/null || npm i --no-save --no-audit --no-fund @rolldown/binding-linux-x64-gnu
 npm run build
 ok "Website built"
 
