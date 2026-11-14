@@ -11,6 +11,9 @@ on:
     branches: [main]
     paths: ['app/**', '.github/workflows/android-apk.yml']
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,3 +40,14 @@ jobs:
         with:
           name: MSR-Rishtey-apk
           path: app/build/MSR-Rishtey.apk
+      - name: Publish APK as GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: app-v1.0.${{ github.run_number }}
+          name: MSR Rishtey App v1.0.${{ github.run_number }}
+          body: |
+            Meena Shadi Rishtey – Android APK
+            API: ${{ github.event.inputs.api_url || 'https://msr.72-60-110-25.sslip.io' }}
+            Download **MSR-Rishtey.apk** below and install (allow "Install unknown apps").
+          files: app/build/MSR-Rishtey.apk
+          make_latest: true
