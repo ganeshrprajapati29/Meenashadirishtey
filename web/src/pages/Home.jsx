@@ -57,6 +57,7 @@ function Counter({ value, label }) {
 
 export default function Home() {
   const { t, tt, lang } = useLang();
+  const { user } = useAuth();
   const settings = useSiteSettings();
   const [stats, setStats] = useState(null);
   const [featured, setFeatured] = useState([]);
@@ -111,7 +112,9 @@ export default function Home() {
             </h1>
             <p className="mt-5 max-w-xl text-base text-white/85 sm:text-lg">{t('heroSub')}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/login" className="btn-gold px-7 py-3 text-base"><UserPlus className="h-5 w-5" />{t('register')}</Link>
+              {user?.role === 'user'
+                ? <Link to="/dashboard" className="btn-gold px-7 py-3 text-base"><Sparkles className="h-5 w-5" />{tt('Go to my dashboard', 'मेरा डैशबोर्ड')}</Link>
+                : <Link to="/login" className="btn-gold px-7 py-3 text-base"><UserPlus className="h-5 w-5" />{t('register')}</Link>}
               <Link to="/about" className="btn border border-white/40 px-7 py-3 text-base text-white hover:bg-white/10">{tt('How it works', 'कैसे काम करता है')}</Link>
             </div>
             <div className="mt-8 flex items-center gap-4 text-sm text-white/80">

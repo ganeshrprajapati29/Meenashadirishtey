@@ -46,7 +46,7 @@ export default function Navbar() {
 
   return (
     <header className={`sticky top-0 z-50 transition ${scrolled ? 'bg-white/95 shadow-md backdrop-blur' : 'bg-white/80 backdrop-blur'}`}>
-      <div className="container-x flex h-16 items-center justify-between gap-4 lg:h-[72px]">
+      <div className="container-x flex h-16 items-center justify-between gap-2 lg:h-[72px]">
         <Logo to={loggedIn ? '/dashboard' : '/'} />
         <nav className="hidden items-center gap-1 lg:flex">
           {links.map((l) => (
@@ -57,8 +57,8 @@ export default function Navbar() {
             </NavLink>
           ))}
         </nav>
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          <button onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')} className="btn-ghost btn-sm !px-2.5" title="Change language">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+          <button onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')} className="btn-ghost btn-sm hidden !px-2.5 sm:inline-flex" title="Change language">
             <Languages className="h-4 w-4" /> <span className="hidden sm:inline">{lang === 'hi' ? 'English' : 'हिंदी'}</span>
           </button>
           {loggedIn ? (
@@ -67,7 +67,7 @@ export default function Navbar() {
                 <Bell className="h-5 w-5" />
                 {socket?.unreadNotifications > 0 && <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-saffron-500 px-1 text-[10px] font-bold text-white">{socket.unreadNotifications}</span>}
               </Link>
-              <Link to="/chat" className="relative rounded-full p-2 text-maroon-700 hover:bg-maroon-50 lg:hidden" aria-label="Messages">
+              <Link to="/chat" className="relative hidden rounded-full p-2 text-maroon-700 hover:bg-maroon-50 sm:block lg:hidden" aria-label="Messages">
                 <MessageCircle className="h-5 w-5" />
                 {socket?.unreadMessages > 0 && <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-saffron-500 px-1 text-[10px] font-bold text-white">{socket.unreadMessages}</span>}
               </Link>
@@ -102,7 +102,7 @@ export default function Navbar() {
           ) : (
             <>
               <Link to="/login" className="btn-ghost btn-sm hidden sm:inline-flex">{t('login')}</Link>
-              <Link to="/login" className="btn-gold btn-sm">{t('register')}</Link>
+              <Link to="/login" className="btn-gold btn-sm whitespace-nowrap"><span className="sm:hidden">{t('login')}</span><span className="hidden sm:inline">{t('register')}</span></Link>
             </>
           )}
           <button className="rounded-full p-2 text-maroon-700 hover:bg-maroon-50 lg:hidden" onClick={() => setOpen((o) => !o)} aria-label="Menu">
@@ -114,8 +114,13 @@ export default function Navbar() {
         <div className="border-t border-maroon-100 bg-white lg:hidden">
           <nav className="container-x flex flex-col py-2">
             {links.map((l) => (
-              <NavLink key={l.to} to={l.to} end={l.end} className={({ isActive }) => `rounded-xl px-3 py-3 text-sm font-medium ${isActive ? 'bg-maroon-50 text-maroon-700' : 'text-gray-700'}`}>{l.label}</NavLink>
+              <NavLink key={l.to} to={l.to} end={l.end} className={({ isActive }) => `flex items-center justify-between rounded-xl px-3 py-3 text-sm font-medium ${isActive ? 'bg-maroon-50 text-maroon-700' : 'text-gray-700'}`}>
+                {l.label}{l.badge > 0 && <span className="rounded-full bg-saffron-500 px-2 text-[11px] font-bold text-white">{l.badge}</span>}
+              </NavLink>
             ))}
+            <button onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')} className="flex items-center gap-2 rounded-xl px-3 py-3 text-left text-sm font-medium text-gray-700">
+              <Languages className="h-4 w-4" />{lang === 'hi' ? 'Switch to English' : 'हिंदी में देखें'}
+            </button>
             {loggedIn && <NavLink to="/matches" className="mt-1 flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-medium text-gray-700"><Search className="h-4 w-4" />{t('search')}</NavLink>}
           </nav>
         </div>
