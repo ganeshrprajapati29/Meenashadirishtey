@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <linearGradient id="arch" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5C542"/><stop offset="1" stop-color="#AE7D10"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="55%" r="50%">
+      <stop offset="0" stop-color="#FFE7A3" stop-opacity=".55"/><stop offset="1" stop-color="#FFE7A3" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF3C4"/><stop offset=".5" stop-color="#F5C542"/><stop offset="1" stop-color="#AE7D10"/></linearGradient>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF7AE"/><stop offset=".6" stop-color="#F5A623"/><stop offset="1" stop-color="#E8762C"/></linearGradient>
+    <g id="marigold">
+      <circle r="9" fill="#F59E0B"/><circle r="6" fill="#FBBF24"/><circle r="3" fill="#F97316"/>
+    </g>
+    <g id="petal"><path d="M0 0 C6 -6 14 -2 12 6 C6 10 0 6 0 0Z" fill="#E8762C" opacity=".85"/></g>
+    <g id="diya">
+      <path d="M-28 0 Q0 26 28 0 Z" fill="#B45309"/>
+      <path d="M-28 0 Q0 10 28 0" fill="none" stroke="#F5C542" stroke-width="3"/>
+      <path d="M0 -6 C-7 -18 -2 -30 0 -36 C2 -30 7 -18 0 -6Z" fill="url(#flame)"/>
+    </g>
+  </defs>
+
+  <circle cx="300" cy="320" r="260" fill="url(#glow)"/>
+
+  <!-- Mandap arch -->
+  <path d="M110 560 V250 Q110 90 300 70 Q490 90 490 250 V560" fill="none" stroke="url(#arch)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M140 560 V258 Q140 120 300 102 Q460 120 460 258 V560" fill="none" stroke="#FFF3D6" stroke-opacity=".5" stroke-width="3" stroke-dasharray="6 8"/>
+  <path d="M270 74 Q300 30 330 74" fill="#F5C542"/>
+  <circle cx="300" cy="44" r="10" fill="#F5C542"/>
+
+  <!-- Toran garland -->
+  <g>
+    <path d="M128 210 Q215 270 300 210 Q385 270 472 210" fill="none" stroke="#15803D" stroke-width="3"/>
+    <use href="#marigold" x="150" y="226"/><use href="#marigold" x="178" y="240"/><use href="#marigold" x="208" y="248"/>
+    <use href="#marigold" x="238" y="246"/><use href="#marigold" x="266" y="234"/><use href="#marigold" x="334" y="234"/>
+    <use href="#marigold" x="362" y="246"/><use href="#marigold" x="392" y="248"/><use href="#marigold" x="422" y="240"/><use href="#marigold" x="450" y="226"/>
+  </g>
+  <!-- Hanging strings -->
+  <g stroke="#F59E0B" stroke-width="2">
+    <line x1="160" y1="232" x2="160" y2="320"/><line x1="440" y1="232" x2="440" y2="320"/>
+    <line x1="215" y1="252" x2="215" y2="300"/><line x1="385" y1="252" x2="385" y2="300"/>
+  </g>
+  <use href="#marigold" x="160" y="326"/><use href="#marigold" x="440" y="326"/>
+  <use href="#marigold" x="215" y="306"/><use href="#marigold" x="385" y="306"/>
+
+  <!-- Wedding rings with heart -->
+  <g transform="translate(300 380)">
+    <circle cx="-38" cy="0" r="62" fill="none" stroke="url(#ring1)" stroke-width="14"/>
+    <circle cx="38" cy="0" r="62" fill="none" stroke="url(#ring1)" stroke-width="14"/>
+    <path d="M38 -62 a62 62 0 0 1 0 0" />
+    <g transform="translate(-38 -70)">
+      <path d="M0 -14 L10 0 L0 14 L-10 0Z" fill="#FFFFFF" stroke="#F5C542" stroke-width="2"/>
+    </g>
+    <path d="M0 -8 C-10 -24 -34 -16 -26 4 C-20 18 0 30 0 30 C0 30 20 18 26 4 C34 -16 10 -24 0 -8Z" fill="#B91C1C" transform="translate(0 92) scale(.7)"/>
+  </g>
+
+  <!-- Diyas -->
+  <use href="#diya" x="190" y="540"/>
+  <use href="#diya" x="300" y="556"/>
+  <use href="#diya" x="410" y="540"/>
+
+  <!-- Petals -->
+  <use href="#petal" x="80" y="140"/><use href="#petal" x="520" y="170" transform="rotate(40 520 170)"/>
+  <use href="#petal" x="60" y="380"/><use href="#petal" x="540" y="420" transform="rotate(-30 540 420)"/>
+  <use href="#petal" x="250" y="150" transform="rotate(20 250 150)"/><use href="#petal" x="360" y="140"/>
+  <!-- sparkles -->
+  <g fill="#FFF3C4">
+    <path d="M100 90 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4z"/>
+    <path d="M500 80 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3z"/>
+    <path d="M520 300 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3z"/>
+  </g>
+</svg>

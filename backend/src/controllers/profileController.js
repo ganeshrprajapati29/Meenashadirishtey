@@ -224,8 +224,8 @@ exports.recommendations = asyncHandler(async (req, res) => {
 
 /** Public featured / latest profiles for the home page (limited info) */
 exports.featured = asyncHandler(async (req, res) => {
-  const items = await Profile.find({ status: 'approved', 'photos.0': { $exists: true }, photoPrivacy: 'all' })
-    .sort({ isFeatured: -1, completeness: -1, createdAt: -1 })
+  const items = await Profile.find({ status: 'approved', photoPrivacy: 'all' })
+    .sort({ isFeatured: -1, 'photos.0': -1, completeness: -1, createdAt: -1 })
     .limit(Math.min(Number(req.query.limit) || 8, 20));
   res.json({
     success: true,
