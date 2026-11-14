@@ -1,0 +1,39 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+    inputs:
+      api_url:
+        description: 'Backend URL baked into the app'
+        required: false
+        default: 'https://msr.72-60-110-25.sslip.io'
+  push:
+    branches: [main]
+    paths: ['app/**', '.github/workflows/android-apk.yml']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      - name: Build APK
+        run: flutter build apk --release --dart-define=API_URL=${{ github.event.inputs.api_url || 'https://msr.72-60-110-25.sslip.io' }}
+      - run: cp build/app/outputs/flutter-apk/app-release.apk build/MSR-Rishtey.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MSR-Rishtey-apk
+          path: app/build/MSR-Rishtey.apk

@@ -6,3 +6,6 @@ dist/
 .DS_Store
 backend/uploads/*
 !backend/uploads/.gitkeep
+app/build/
+app/.dart_tool/
+app/.flutter-plugins-dependencies
