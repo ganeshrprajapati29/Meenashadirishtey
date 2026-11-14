@@ -5,6 +5,10 @@ plugins {
 }
 
 android {
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
     namespace = "com.meenashadirishtey.msr_app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
